@@ -162,6 +162,54 @@ client.on("message", async (message) => {
             SuccessEmbed.setDescription("You have given " + Money + " Mdk coins <:mdkc:788936738634072074> to " + Mentioned.user.username);
             message.channel.send(SuccessEmbed);
         }
+        if (args[0] == "inv") {
+            // Action Here
+            let UserJSON = JSON.parse(Fs.readFileSync("./DB/users.json"));
+
+            if (!UserJSON[message.author.id]) {
+                let ErrorEmbed = new Discord.MessageEmbed();
+                ErrorEmbed.setTitle("**ERROR**");
+                ErrorEmbed.setDescription("You must be playing the game.");
+                ErrorEmbed.setColor('#5DBE29')
+                message.channel.send(ErrorEmbed);
+                return;
+            }
+            let mentioned = message.mentions.members.first();
+            if (mentioned) {
+                if (!UserJSON[mentioned.id]) {
+                    let ErrorEmbed = new Discord.MessageEmbed();
+                    ErrorEmbed.setTitle("**ERROR**");
+                    ErrorEmbed.setDescription("That person is not playing the game.");
+                    ErrorEmbed.setColor('#5DBE29')
+                    message.channel.send(ErrorEmbed);
+                    return;
+                }
+                let SuccessEmbed = new Discord.MessageEmbed();
+                SuccessEmbed.setTitle("**SUCCESS**");
+                SuccessEmbed.addField("Balance <:mdkc:788936738634072074>", UserJSON
+                [mentioned.id].eitanmdk);
+                SuccessEmbed.addField("Balance <:mdkc:788936738634072074>", UserJSON
+                [mentioned.id].computer);
+                SuccessEmbed.addField("Balance <:mdkc:788936738634072074>", UserJSON
+                [mentioned.id].nitro);
+                SuccessEmbed.setColor('#5DBE29')
+                message.channel.send(SuccessEmbed);
+                return;
+            } else {
+                let SuccessEmbed = new Discord.MessageEmbed();
+                SuccessEmbed.setTitle("**SUCCESS**");
+                SuccessEmbed.addField("eitanmdks <:mdkc:788936738634072074>", UserJSON
+                [message.author.id].eitanmdks);
+                SuccessEmbed.addField("computers <:computer:797877910354264094>", UserJSON
+                [message.author.id].computers);
+                SuccessEmbed.addField("nitros <:nitro:797876176265281589>", UserJSON
+                [message.author.id].nitros);          SuccessEmbed.addField("workers <:worker:797871381555576832>", UserJSON
+                [message.author.id].workers);
+                SuccessEmbed.setColor('#5DBE29')
+                message.channel.send(SuccessEmbed);
+                return;
+            }
+        }
 
         if (args[0] == "bal") {
             // Action Here
@@ -253,19 +301,22 @@ client.on("message", async (message) => {
                 case "worker":
                   case 'nitro':
                    case 'eitanmdk':
-                    case 'minecraft cube':
+                    case 'computer':
                     if (10 * parseInt(amount) > UserJSON[message.author.id].bal) {
+                      
                         let ErrorEmbed = new Discord.MessageEmbed();
                         ErrorEmbed.setTitle("**ERROR**");
                         ErrorEmbed.setDescription("You do not have enough money <:mdkc:788936738634072074>");
                         ErrorEmbed.setColor('#5DBE29')
                         message.channel.send(ErrorEmbed);
-                        return;
+                        
                     }
+                    
                     
                     
 
                     UserJSON[message.author.id].workers += parseInt(amount) * 20;
+                    UserJSON[message.author.id].eitanmdks += parseInt(amount) * 100000000;
                     UserJSON[message.author.id].bal -= parseInt(amount) * 10;
                     Fs.writeFileSync("./DB/users.json", JSON.stringify(UserJSON));
 
@@ -355,7 +406,9 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === prefix + 'germanfrase') {
+    
     msg.reply('TU MAMA');
+    
   }
 });
 client.on('message', msg => {
@@ -369,9 +422,12 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if(msg.content === prefix + 'topsecret')
-  msg.reply('en la actualicacion 2.2 se va a poder comprar mas cosas en la seccion de economia <:mdkc:788936738634072074><a:vailado:783076196664737803>')
+  msg.reply('en la actualicacion 2.4 se va a poder comprar mas cosas en la seccion de economia <:mdkc:788936738634072074><a:vailado:783076196664737803>')
 });
-
+client.on('message', msg => {
+  if(msg.content === prefix + 'tu mama')
+  msg.reply('EN TANGA XDDDDD')
+});
 client.on('message', msg => {
   if(msg.content === prefix + 'UwU')
   msg.reply('UwU, OwO, AwA')
@@ -453,20 +509,8 @@ client.on('message', msg => {
       if (msg.content.startsWith(prefix + 'help')) {
     msg.reply(embed)
   }
-});
-client.on('message', msg => {
-  const embed = new Discord.MessageEmbed()
-    .setColor('#1BEC0A')
-    .setThumbnail(msg.author.displayAvatarURL())
-    .setTimestamp()
-    .setTitle('SALA DE CHAT')
-    .addField('eitan', '`todavia nada`')
-    .addField('titon', '`todavia nada`')
-    .addField('tomsa', '`todavia nada`')
-      if (msg.content.startsWith(prefix + 'help')) {
-    msg.reply(embed)
-  }
-});
+})
+
 client.on('message', msg => {
   const embed = new Discord.MessageEmbed()
     .setColor('#1B6CC8')
@@ -516,7 +560,8 @@ client.on('message', msg => {
     .addField('2.1', 'we add some memes on `m!memes`')
     .addField('2.2', 'add items to `m!shop` u can now buy more things and add some music and more memes ')
     .addField('2.3', 'add more memes and finnaly i do an update for the command `m!mainkra` ')
-      if (msg.content.startsWith(prefix + 'updates')) {
+    .addField('2.31', 'the `m!tu mama` is back!! and fixed some bugs')
+      if (msg.content.startsWith(prefix + 'changelog')) {
     msg.reply(embed)
       }
 });   
@@ -646,7 +691,6 @@ client.on('message', msg => {
     .setTitle('INVITE THE BOT')
     .setURL('https://discord.com/api/oauth2/authorize?client_id=769400040962916382&permissions=8&scope=bot')
     .setColor('#29D70E')
-    .setImage('https://guapasigracias.com/wp-content/uploads/2018/11/signo-mas.png')
     if (msg.content.startsWith(prefix + 'invite')) {
     msg.reply(embed)
           }
