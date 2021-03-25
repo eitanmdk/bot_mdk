@@ -391,6 +391,16 @@ client.on('message', msg => {
     msg.reply('https://i.ytimg.com/vi/ZF57zsOWdB0/maxresdefault.jpg')
   }
 });
+client.on('message', msg => {
+  if(msg.content === prefix + 'vote') {
+    msg.reply('\n**VOTE**\nSAM BOT LIST:https://samlist.glitch.me/bots/like/769400040962916382\nTop Bots:\nMAD KING:\nDISCTOP')
+  }
+});
+client.on('message', msg => {
+  if(msg.content === 'join heist') {
+    msg.react('😠')
+  }
+});
 
 
 
@@ -451,7 +461,7 @@ client.on('message', message => {
   'https://www.youtube.com/watch?v=D5uJOpItgNg', 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks', 'https://www.youtube.com/watch?v=85ftfVUTzM4', 'https://www.youtube.com/watch?v=tOZNh8veU_Y', 'https://www.youtube.com/watch?v=HeQGcCtk4bc',
   'https://www.youtube.com/watch?v=Qskm9MTz2V4', 'https://www.youtube.com/watch?v=3rUrG_3pk6o', 'https://www.youtube.com/watch?v=w5jWSS1DVZQ', ''];
   var Aleatorio = Math.floor(Math.random() * (Mensages.length));
-  if (message.content.startsWith(prefix + 'musica')) {
+  if (message.content.startsWith(prefix + 'music')) {
     message.channel.send(Mensages[Aleatorio]);
   }
 });
@@ -533,9 +543,9 @@ client.on('message', msg => {
     .setTitle('COMMANDS OTHERS')
     .addField('youtube', '`m!youtube` shows my yt')
     .addField('twitch', '`m!twitch` shows my twitch')
-    .addField('updates', '`m!updates` show all the recent updates of the bot')
+    .addField('updates', '`m!changelog` show all the recent updates of the bot')
     .addField('invite', '`m!invite` u can invite the bot to your server')
-        .addField('music', 'with `m!musica` says the best music')
+    .addField('music', 'with `m!music` says the best music')
       if (msg.content.startsWith(prefix + 'others')) {
     msg.reply(embed)
   }
@@ -561,6 +571,8 @@ client.on('message', msg => {
     .addField('2.2', 'add items to `m!shop` u can now buy more things and add some music and more memes ')
     .addField('2.3', 'add more memes and finnaly i do an update for the command `m!mainkra` ')
     .addField('2.31', 'the `m!tu mama` is back!! and fixed some bugs')
+    .addField('2.4', 'a two new commands has begun `m!web` and `m!support` finnaly a new support server and fixed some bugs')
+    .addField('2.41', 'an small update that contains `m!vote` and now `m!musica` is `m!music`')
       if (msg.content.startsWith(prefix + 'changelog')) {
     msg.reply(embed)
       }
@@ -627,6 +639,26 @@ client.on('message', msg => {
       }); 
   client.on('message', msg => {
   const embed = new Discord.MessageEmbed()
+  .setColor('#2CA93D')
+    .setTimestamp()
+    .setTitle('MY PAGE')
+    .setURL('https://bot-mdk.zyrosite.com/')
+    if (msg.content.startsWith(prefix + 'web')) {
+    msg.reply(embed)
+          }
+      }); 
+        client.on('message', msg => {
+  const embed = new Discord.MessageEmbed()
+  .setColor('#A92C56')
+    .setTimestamp()
+    .setTitle('SUPPORT SERVER')
+    .setURL('https://discord.com/invite/Zb3CujRsxT')
+    if (msg.content.startsWith(prefix + 'support')) {
+    msg.reply(embed)
+          }
+      });
+        client.on('message', msg => {
+  const embed = new Discord.MessageEmbed()
   .setColor('#6C0ED7')
     .setTimestamp()
     .setTitle('MY TWITCH')
@@ -690,6 +722,16 @@ client.on('message', msg => {
     .setTimestamp()
     .setTitle('INVITE THE BOT')
     .setURL('https://discord.com/api/oauth2/authorize?client_id=769400040962916382&permissions=8&scope=bot')
+    .setColor('#29D70E')
+    if (msg.content.startsWith(prefix + 'invite')) {
+    msg.reply(embed)
+          }
+      }); 
+client.on('message', msg => {
+  const embed = new Discord.MessageEmbed()
+    .setTimestamp()
+    .setTitle('PARTNERS')
+    .addField('xd')
     .setColor('#29D70E')
     if (msg.content.startsWith(prefix + 'invite')) {
     msg.reply(embed)
