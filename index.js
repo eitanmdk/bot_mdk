@@ -14,28 +14,29 @@ const config = require("./config.json");
 let prefix = process.env.PREFIX;
 ////////handler//////
 
-client.config = config
+client.config = config;
 
-client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+fs.readdir("./events/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    const event = require(`./events/${file}`);
+    let eventName = file.split(".")[0];
+    client.on(eventName, event.bind(null, client));
+  });
+});
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
-}
+client.commands = new Enmap();
 
-for (const file of readdirSync('./events')) {
-  
-  if(file.endsWith("js")){
-    let fileName = file.substring(0, file.length - 3)
-
-    let fileContents = require (`./events ${file}`);
-
-    client.on(fileName, fileContents.bind(null, client));
-
-  }
-
-}
+fs.readdir("./commands/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
 ////////////server/////////////
 
 require('dotenv').config();
@@ -64,11 +65,11 @@ client.on('ready', () => {
     name:'xd idk',
     type:'PLAYING'
   },
-      {
-    name:'im are on 72 servers',
+  {
+    name:`im are on 75 servers`,
     type:'PLAYING'
   },
-    {
+  {
     name:'plis invite me',
     type:'STREAMING',
     url: 'https://twitch.tv/eitanmdk'
@@ -83,7 +84,7 @@ client.on('ready', () => {
     }
 
     presence();
-  }, 1000)
+  }, 7000)
 
 console.log('si estoy online !!!!')
 })
@@ -501,7 +502,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if(msg.content === prefix + 'topsecret')
-  msg.reply('en la actualicacion 2.4 se va a poder comprar mas cosas en la seccion de economia <:mdkc:788936738634072074><a:vailado:783076196664737803>')
+  msg.reply('en la actualicacion 3.0 se va a poder comprar mas cosas en la seccion de economia <:mdkc:788936738634072074><a:vailado:783076196664737803>')
 });
 client.on('message', msg => {
   if(msg.content === prefix + 'tu mama')
@@ -637,7 +638,8 @@ client.on('message', msg => {
     .addField('updates', '`m!changelog` show all the recent updates of the bot')
     .addField('invite', '`m!invite` u can invite the bot to your server')
     .addField('music', 'with `m!music` says the best music')
-   .addField(`ping`, `Check the bot's ping`)
+    .addField('vote', 'with `m!vote` u can vote for the bot')
+    .addField(`ping`, `Check the bot's ping`)
       if (msg.content.startsWith(prefix + 'others')) {
     msg.reply(embed)
   }
