@@ -7,12 +7,12 @@ const { inspect } = require ('util')
 
 module.exports = {
   name: "eval" , 
-  alias: [] ,
+  alias: ["e"] ,
 
 
 execute (client, message, args){
 
-  if(message.author.id !== '547953269918400515') return message.channel.send('No puedes usar este comando solo el creador de el bot')
+  if(message.author.id !== '547953269918400515') return message.channel.send('u cant use this command dum dum only the creator')
 
  const command = args.join(" ")
  if(!command) return message.channel.send("debes escribir un comando")
@@ -20,16 +20,16 @@ execute (client, message, args){
  try {
  const evaled = eval(command)
  let palabras = ["token", "destroy"]
- if(palabras.some(word => message.content.tolowecase().includes(word))){
+ if(palabras.some(word => message.content.toLowerCase().includes(word))){
    return message.channel.send("no se permiten esas palabras")
  }
  const embed = new Discord.MessageEmbed()  
  .setColor('GREEN')  
  .setTitle('evaluado!')
- .addField('`**tipo**`', `\`\`\`prolog\n${typeof(evaled)}\`\`\``, true)
+ .addField(`**tipo**`, `\`\`\`prolog\n${typeof(evaled)}\`\`\``, true)
  .addField('**EVALUADO EN**', `\`\`\`yaml\n${Date.now() - message.createdTimestamp}ms\`\`\``, true)
  .addField(`**ENTRADA**`, `\`\`\`\n${command}\`\`\``)
- .addField(`**SALIDA**`, `\`\`\`js\n${inspected(evaled, {depth: 0})}\`\`\``)
+ .addField(`**SALIDA**`, `\`\`\`js\n${inspect(evaled, {depth: 0})}\`\`\``)
 
  message.channel.send(embed)
  } catch (error) {

@@ -12,31 +12,34 @@ const bot = new Discord.Client()
 const Enmap = require("enmap");
 const config = require("./config.json");
 let prefix = process.env.PREFIX;
+
 ////////handler//////
 
-client.config = config;
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-fs.readdir("./events/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(file => {
-    const event = require(`./events/${file}`);
-    let eventName = file.split(".")[0];
-    client.on(eventName, event.bind(null, client));
-  });
-});
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
-client.commands = new Enmap();
+client.on('message', message => {
 
-fs.readdir("./commands/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(file => {
-    if (!file.endsWith(".js")) return;
-    let props = require(`./commands/${file}`);
-    let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
-    client.commands.set(commandName, props);
-  });
-});
+  
+
+  if(message.author.bot) return;
+
+  if(!message.content.startsWith(prefix)) return;
+
+  let usuario = message.mentions.members.first() || message.member; 
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+    let cmd = client.commands.find((c) => c.name === command || c.alias && c.alias.includes(command));
+if(cmd){
+cmd.execute(client, message, args)
+
+}
+})
 ////////////server/////////////
 
 require('dotenv').config();
@@ -66,8 +69,12 @@ client.on('ready', () => {
     type:'PLAYING'
   },
   {
-    name:`im are on 75 servers`,
-    type:'PLAYING'
+    name:`to ${client.guilds.cache.size} servers`,
+    type:'LISENTING'
+  },
+  {
+    name:`to ${client.users.cache.size} users`,
+    type:'WATCHING'
   },
   {
     name:'plis invite me',
@@ -365,6 +372,7 @@ client.on("message", async (message) => {
                     case 'computer':
                     if (10 * parseInt(amount) > UserJSON[message.author.id].bal) {
                       
+                      
                         let ErrorEmbed = new Discord.MessageEmbed();
                         ErrorEmbed.setTitle("**ERROR**");
                         ErrorEmbed.setDescription("You do not have enough money <:mdkc:788936738634072074>");
@@ -397,6 +405,7 @@ client.on("message", async (message) => {
                     return;
             }
         }
+        
         if (args[0] == "work") {
             let UserJSON = JSON.parse(Fs.readFileSync("./DB/users.json"));
 
@@ -483,13 +492,11 @@ client.on('message', msg => {
     
   }
 });
-client.on("message", message =>{
-    if(!message.content.startsWith(prefix + 'prueba')) return;
-    if(!message.author.hasPermission("ADMINSTRATOR")) return message.reply("NO");
-    if(message.content.startsWith(`${prefix}help`)){
-        message.channel.send("No help yet.");
-    };
-});
+client.on('message', msg => {
+  if(msg.content ===
+  prefix + 'funado')
+  msg.reply('eitan esta funado por eso no hace updates porque le dijo a su hermano puto 1/03/21')
+})
 
 client.on('message', msg => {
   if(msg.content === prefix + 'dormir') {
@@ -572,12 +579,22 @@ client.on('message', msg => {
     .setTimestamp()
     .setTitle('RANDOM COMMANDS')
     .addField('dormir', 'with m!dormir says wenas noches')
-    .addField('cara de feo', 'with m!cara de feo says a face of a noob')
-    .addField('cabeza', 'with m!cabeza says the meme of the head')
+    .addField('badface', 'with m!badface says a face of a a weird man xD')
+    .addField('crow', 'with m!crow says the meme of the crow')
     .addField('tu mama', 'with m!tu mama says jajajajajajajaja')
     .addField('maik wasowski', 'with m!maik wasowski says the meme of mike wasowski')
     .addField('noob', 'with m!noob says the roblox noob')
     if (msg.content.startsWith(prefix + 'random')) {
+    msg.reply(embed)
+  }
+});
+client.on('message', msg => {
+  const embed = new Discord.MessageEmbed()
+    .setColor('#FF8B00')
+    .setTimestamp()
+    .setTitle('YOUR AVATAR')
+    .setImage(msg.author.displayAvatarURL())
+    if (msg.content.startsWith(prefix + 'av')) {
     msg.reply(embed)
   }
 });
@@ -632,7 +649,7 @@ client.on('message', msg => {
     .setColor('#17FF00')
     .setThumbnail('https://www.expertosdecomputadoras.com/wp-content/uploads/2011/12/como%20reiniciar%20un%20trabajo%20en%20unix%20sco.jpg')
     .setTimestamp()
-    .setTitle('COMMANDS OTHERS')
+    .setTitle('OTHER COMMANDS')
     .addField('youtube', '`m!youtube` shows my yt')
     .addField('twitch', '`m!twitch` shows my twitch')
     .addField('updates', '`m!changelog` show all the recent updates of the bot')
@@ -640,6 +657,10 @@ client.on('message', msg => {
     .addField('music', 'with `m!music` says the best music')
     .addField('vote', 'with `m!vote` u can vote for the bot')
     .addField(`ping`, `Check the bot's ping`)
+    .addField('suggest', 'with `m!suggest` send a suggestion for the bot')
+    .addField('say', 'with `m!say` send a message u want only for admins for not raids')
+    .addField('report', 'm!report is to report buge')
+    .addField('suggest', 'm!suggest is for suggestions for the bot')
       if (msg.content.startsWith(prefix + 'others')) {
     msg.reply(embed)
   }
@@ -670,19 +691,16 @@ client.on('message', msg => {
     .addField('2.5', 'FINNALY MODERATION COMMANDS ARE HEREEEEE !!!!!! THE `m!moderation` is finnaly here guys u can now purge msgs and kick members and ban but the bot and u need to have perms to nobody raid ur server we added some things and too much commands like `m!ping` or `m!rps` and more secrets 0_0...')
     .addField('2.6', 'NEW ARRAY OF STATUS ON DISCORD !!! NOW THE BOT CHANGE OF STATUS ON 1000 SECONDS AND THATS NICE !!!')
     .addField('2.7', 'new commands of memes now is classified `m!meme esp` is an spanish memes and `m!meme eng` is the memes on english')
+    .addField('2.71', 'some commands added like `m!eval` and `m!web` not too much I was very busy with eval command sorry :/')
+    .addField('2.8', 'NEW COMMANDS LIKE `m!say` remastered  for only admins for now!! and I add a new suggestion system with the `m!suggestion` command and it sends ur suggest to a channel on the support server called suggestions and u can vote')
+    .addField('2.81', 'made some commands on spanish to english nothing else xD *small updates*')
+    .addField('2.82', 'sorry not too much on this update i have personal problems but i added a command m!report 3.0 is near...?')
+    .addField('2.83', 'added more secrets')
       if (msg.content.startsWith(prefix + 'changelog')) {
     msg.reply(embed)
       }
 }); 
-    client.on('message', msg => {
-  const embed = new Discord.MessageEmbed()
-  .setColor('#FF0000')
-  .setThumbnail('https://media.giphy.com/media/5wWf7HapUvpOumiXZRK/giphy.gif')
-  .setTimestamp()
-    .addField('2.7', 'new commands of memes now is classified `m!meme esp` is an spanish memes and `m!meme eng` is the memes on english')
-      if (msg.content.startsWith(prefix + '2.7')) 
-    msg.reply(embed)
-    })
+
   
 client.on('message', msg => {
   const embed = new Discord.MessageEmbed()
@@ -716,11 +734,11 @@ client.on('message', msg => {
       });   
     client.on('message', msg => {
   const embed = new Discord.MessageEmbed()
-    .setDescription('image of a cabeza')
+    .setDescription('image of crow')
     .setTimestamp()
-    .setTitle('cabeza')
+    .setTitle('crow')
     .setImage('https://cdn.discordapp.com/attachments/760494112398508092/775397965752959026/Crow_Men.png')
-          if (msg.content.startsWith(prefix + 'cabeza')) {
+          if (msg.content.startsWith(prefix + 'crow')) {
     msg.reply(embed)
           }
       });   
@@ -776,11 +794,11 @@ client.on('message', msg => {
       }); 
   client.on('message', msg => {
   const embed = new Discord.MessageEmbed()
-    .setDescription('image of feo')
+    .setDescription('image of a bad face')
     .setTimestamp()
-    .setTitle('cara de feo')
+    .setTitle('BAD FACE')
     .setImage('https://i.pinimg.com/originals/f9/be/3c/f9be3c86216a46d55f3aec1a991647f7.jpg')
-    if (msg.content.startsWith(prefix + 'cara de feo')) {
+    if (msg.content.startsWith(prefix + 'badface')) {
     msg.reply(embed)
           }
       }); 

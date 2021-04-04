@@ -1,2 +1,2 @@
   var generalChannel = client.channel.get("824630817665056849")
-  generalChannel.send("SE VOLVIO A PRENDER")
+  generalChannel.send("SE VOLVIO A PRENDER")"token", 
