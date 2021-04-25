@@ -19,7 +19,7 @@ execute (client, message, args){
 
  try {
  const evaled = eval(command)
- let palabras = ["token", "destroy"]
+ let palabras = ["token", "destroy", "process"]
  if(palabras.some(word => message.content.toLowerCase().includes(word))){
    return message.channel.send("no se permiten esas palabras")
  }

@@ -1,2 +1,15 @@
-  var generalChannel = client.channel.get("824630817665056849")
-  generalChannel.send("SE VOLVIO A PRENDER")"token", 
+
+    try {
+     await queue.set(guild.id, queueConstruct)
+     await queueConstruct.songs.push(song)
+
+     const connection = await voiceChannel.join()
+     queueConstruct.connection = connection
+
+     await play(guild, queueConstruct.songs[0])
+   
+} catch (error) {
+  message.channel.send('i had an error')
+  }
+ }
+

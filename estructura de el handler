@@ -1,0 +1,41 @@
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const { Client, MessageEmbed } = require('discord.js');
+
+module.exports = {
+  name: "",
+  alias: [""],
+
+execute (client, message, args){
+
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////event//////////////
+for(const file of readdirSync('./events')){
+  if(file.endsWith('.js')){
+    let fileName = file.substring(0, file.length - 3)
+
+    let fileContents = require(`./events/${file}`)
+
+    client.on(fileName, fileContents.bind(null, client))
+  }
+}

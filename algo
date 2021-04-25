@@ -1,0 +1,14 @@
+client.on('message', msg => {
+  const embed = new Discord.MessageEmbed()
+    .setColor('#1B6CC8')
+    .setThumbnail('https://media.giphy.com/media/KiGMzfSIrNf0s/giphy.gif')
+    .setTimestamp()
+    .setTitle('SHOP <:bolsa:797869062091964496>')
+    .addField('NITRO (not in real) <:nitro:797876176265281589>'
+      , '10$ <:mdkc:788936738634072074>')
+    .addField('WORKER <:worker:797871381555576832>', '10$ <:mdkc:788936738634072074>')
+    .addField('COMPUTER <:computer:797877910354264094>', '10$ <:mdkc:788936738634072074>')
+      if (msg.content.startsWith(prefix + 'shop')) {
+    msg.reply(embed)
+  }
+});

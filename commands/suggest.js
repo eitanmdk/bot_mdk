@@ -15,11 +15,11 @@ const embed = new Discord.MessageEmbed()
 .setTitle("New suggest !")
 .setDescription(`The user **${message.author.username}** made a suggest \n\n Suggestion: **${reporte}**!`)
 .setFooter("New suggestion")
-.setColor("RED")
+.setColor("RANDOM")
 client.channels.cache.get('826469736237629460').send(embed).then(async msg => {
   await msg.react("✅")
   await msg.react("❔") 
-  await msg.react("❎")
+  await msg.react("❎").then; return message.channel.send('suggestion sent')
 })
 
 }
