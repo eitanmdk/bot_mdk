@@ -12,7 +12,7 @@ execute (client, message, args){
   .setColor('#2CA93D')
     .setTimestamp()
     .setTitle('MY PAGE')
-    .setURL('https://bot-mdk.zyrosite.com/')
+    .setURL('https://bot-mdk.zyrosite.com')
     message.channel.send(embed)
 
  }

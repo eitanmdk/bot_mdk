@@ -26,6 +26,7 @@ for (const file of commandFiles) {
 client.on('message', message => {
 
 client.queue = new Map()
+client.snipes = new Map()
 
   if(message.author.bot) return;
 
@@ -40,6 +41,23 @@ cmd.execute(client, message, args)
 
 }
 })
+client.on('messageDelete', message => {
+  client.snipes.set(message.channel.id, {
+    content: message.content,
+    delete: message.author,
+    canal: message.channel
+  })
+})
+/////////////event//////////////
+for(const file of readdirSync('./events')){
+  if(file.endsWith('.js')){
+    let fileName = file.substring(0, file.length - 3)
+
+    let fileContent = require(`./events/${file}`)
+
+    client.on(fileName, fileContent.bind(null, client))
+  }
+}
 ////////////server/////////////
 
 require('dotenv').config();
@@ -62,79 +80,11 @@ async function createApiMessage(interaction, content){
 
 }
 
-client.on('ready', () => {
-  const array = [
-  {
-    name:'m!help for comms',
-    type:'WATCHING'
-  },
-    {
-    name:'coding',
-    type:'PLAYING'
-  },
-    
-    {
-    name:'fortnite',
-    type:'PLAYING'
-  },
-      {
-    name:'sad',
-    type:'PLAYING'
-  },
-      {
-    name:'version 3.0',
-    type:'PLAYING'
-  },
-  {
-    name:'xd idk',
-    type:'PLAYING'
-  },
-  {
-    name:`to ${client.guilds.cache.size} servers`,
-    type:'LISENTING'
-  },
-  {
-    name:`to ${client.users.cache.size} users`,
-    type:'WATCHING'
-  },
-  {
-   name:'3.1 soon',
-   type:'WATCHING'
-  },
-  {
-    name:'plis invite me',
-    type:'STREAMING',
-    url: 'https://twitch.tv/eitanmdk'
-  }
-  ]
-  setInterval(() => {
-    function presence() {
-      client.user.setPresence({
-        status: 'Online',
-        activity: array[Math.floor(Math.random() * array.length)]  
-});
-    }
 
-    presence();
-  }, 7000)
-
-console.log('si estoy online !!!!')
-for (const file of commandFiles) {
-  console.log(`loaded ${file}`);
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
-}
-
-})
 ///////////comandos////////////
 client.on('message', msg => {
   if(msg.content === prefix + 'bruh') {
     msg.reply('https://i.ytimg.com/vi/ZF57zsOWdB0/maxresdefault.jpg')
-  }
-});
-client.on('message', msg => {
-  if(msg.content === prefix + 'vote') {
-    msg.reply('\n**VOTE**\nSAM BOT LIST:https://samlist.glitch.me/bots/like/769400040962916382\nTop Bots:\nMAD KING:\nDISCTOP')
   }
 });
 client.on('message', msg => {
@@ -187,7 +137,9 @@ client.on('message', msg =>  {
   msg.reply('https://abcespblog.files.wordpress.com/2019/10/c3adndice.png')
 });
 //////////////slash////////////
-async function createApiMessage(interaction, content){
+
+client.on('ready', async () => {
+  async function createApiMessage(interaction, content){
     const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
     .resolveData()
     .resolveFiles()
@@ -195,7 +147,6 @@ async function createApiMessage(interaction, content){
     return { ...apiMessage.data, files : apiMessage.files };
 
 }
-client.on('ready', async () => {
 client.api.applications(client.user.id).commands.post({
   data: {
     name:'hola',

@@ -8,6 +8,7 @@ module.exports = {
 
 execute (client, message, args){
 const help = args.join(" ")
+  if(message.author.id !== '547953269918400515') return message.channel.send('u cant use this command dum dum only the creator')
 
   const embed = new Discord.MessageEmbed()
     .setColor('#1BEC0A')

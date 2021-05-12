@@ -18,9 +18,9 @@ async execute (client, message, args){
 
   const embed = new Discord.MessageEmbed()
   .setTitle(`${user.username}´s balance`)
-  .addField(`Pocket: `, `${bal}$`, true)
-  .addField(`Bank: `, `${bank}$`, true)
-  .addField(`All Money: `, `${bank + bal}$`, true)
+  .addField(`Pocket: `, `${bal}$💸`, true)
+  .addField(`Bank: `, `${bank}$🏦`, true)
+  .addField(`All Money: `, `${bank + bal}$💵`, true)
   .setColor('RANDOM')
   message.channel.send(embed)
 

@@ -6,7 +6,7 @@ const youtube = new YouTube(process.env.ytkey);
 const distube = require('distube');
 
 module.exports = {
-  name: "resume",
+  name: "pause",
   alias: [],
 
 execute (client, message, args){
@@ -15,14 +15,21 @@ execute (client, message, args){
   const voiceChannel = message.member.voice.channel
   const serverQueue = queue.get(message.guild.id)
 
-  if(!voiceChannel) return message.channel.send('U are not on a vc to pause music')
-  if(serverQueue && voiceChannel !== message.guild.me.voice.channel) return message.channel.send('U need to be on the same channel as me')
-  if(serverQueue && !serverQueue.playing){
-    serverQueue.playing = true
-    serverQueue.connection.dispatcher.resume()
+if(!serverQueue) return message.channel.send('No songs are reproducing')
 
-    message.channel.send('the song were resumed')
+
+let i = 1
+
+let list = serverQueue.songs.slice(1).map((m => {
+  if(i > 16)
+  i++;
+
+  return `${i} - ${m.title} - By: ${m.author}`
+})
+
+
+
   }
 
  }
-}
+

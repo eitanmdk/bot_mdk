@@ -1,9 +1,21 @@
 const Discord = require('discord.js')
 
-module.exports = async (client, message) => {
-
+module.exports = async (client) => {
   
-const array = [
+  const lol = new Discord.MessageEmbed()
+  .setDescription('Restart finished')
+  .setColor('RANDOM')
+  client.channels.cache.get('824630817665056849').send(lol)
+
+  async function createApiMessage(interaction, content){
+    const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
+    .resolveData()
+    .resolveFiles()
+
+    return { ...apiMessage.data, files : apiMessage.files };
+
+}
+  const array = [
   {
     name:'m!help for comms',
     type:'WATCHING'
@@ -21,9 +33,13 @@ const array = [
     name:'sad',
     type:'PLAYING'
   },
-      {
-    name:'version 2.9',
+  {
+    name:'version 3.2',
     type:'PLAYING'
+  },
+  {
+   name:'logs.',
+   type:'STREAMING'
   },
   {
     name:'xd idk',
@@ -38,6 +54,10 @@ const array = [
     type:'WATCHING'
   },
   {
+   name:'3.3 soon',
+   type:'WATCHING'
+  },
+  {
     name:'plis invite me',
     type:'STREAMING',
     url: 'https://twitch.tv/eitanmdk'
@@ -46,7 +66,7 @@ const array = [
   setInterval(() => {
     function presence() {
       client.user.setPresence({
-        status: 'dnd',
+        status: 'Online',
         activity: array[Math.floor(Math.random() * array.length)]  
 });
     }
@@ -55,9 +75,8 @@ const array = [
   }, 7000)
 
 console.log('si estoy online !!!!')
-for (const file of commandFiles) {
-  console.log(`loading ${file}`);
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+
 }
-}
+
+
+

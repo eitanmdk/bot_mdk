@@ -8,6 +8,7 @@ module.exports = {
 
 execute (client, message, args){
 const others = args.join(" ")
+  if(message.author.id !== '547953269918400515') return message.channel.send('u cant use this command dum dum only the creator')
 
   const embed = new Discord.MessageEmbed()
     .setColor('#17FF00')
@@ -18,8 +19,6 @@ const others = args.join(" ")
     .addField('twitch', '`m!twitch` shows my twitch')
     .addField('updates', '`m!changelog` show all the recent updates of the bot')
     .addField('invite', '`m!invite` u can invite the bot to your server')
-    .addField('music', 'with `m!music` says the best music')
-    .addField('vote', 'with `m!vote` u can vote for the bot')
     .addField(`ping`, `Check the bot's ping`)
     .addField('suggest', 'with `m!suggest` send a suggestion for the bot')
     .addField('say', 'with `m!say` send a message u want only for admins for not raids')

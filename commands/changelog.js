@@ -39,6 +39,8 @@ execute (client, message, args){
     .addField('2.8', 'NEW COMMANDS LIKE `m!say` remastered  for only admins for now!! and I add a new suggestion system with the `m!suggestion` command and it sends ur suggest to a channel on the support server called suggestions and u can vote')
     .addField('2.9', 'FINNALY A GOOD UPDATE, make an `m!about` and make some secrets and update the array of status')
     .addField('3.0', 'THE BEST UPDATE EVER MADE !!!! THE NEW UPDATE COME WITH A NEW MUSIC SYSTEM `m!music` FOR THE COMMANDS NOW U CAN MAKE HOWGAY U ARE WITH `m!howgay` AND U CAN MENTION FOR KNOW HOW THEY GAY ARE ALSO THE `m!hack` COMMAND HAS BECOME YOU CAN NOW HACK PEOPLE WITH MY BOT AND A LOT OF THINGS MORE LIKE SECRET COMMS USE IT AND `m!peter-griffin` COMMAND IS HERE U CAN PUT UR AVATAR OR THE OTHERS AVATAR ON THE FACE OF PETER LOL AND A NEW SYSTEM OF HANDLER HAS BECOME TAKE CARE')
+    .addField('3.1', 'Bassicly a bug fix nothing else and i add all commands of 3.0 on help comms')
+    .addField('3.2', 'Rremasterized all the help command and i made some new commands like `m!snipe`, `m!work` and `m!bal` and we re-opened our ECONOMY SYSTEM GGS')
     message.channel.send(embed)
 
  }
