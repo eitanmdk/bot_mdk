@@ -9,7 +9,7 @@ module.exports = {
 execute (client, message, args){
 
   let embed = new Discord.MessageEmbed()
-  .setTitle('server info')
+  .setTitle('Server Info')
   .setColor('RANDOM')
   .setDescription('Actual server info')
   .addField('Name of the server: ', message.guild.name)

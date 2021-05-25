@@ -4,15 +4,16 @@ const { Client, MessageEmbed } = require('discord.js');
 
 module.exports = {
   name: "av",
-  alias: [],
+  alias: ["avatar"],
 
 execute (client, message, args){
+  const user = message.mentions.users.first() || message.author;
   
   const embed = new Discord.MessageEmbed()
-    .setColor('#FF8B00')
+    .setColor('RANDOM')
     .setTimestamp()
-    .setTitle('YOUR AVATAR')
-    .setImage(message.author.displayAvatarURL())
+    .setTitle(`THE AVATAR OF **${user.tag}**`)
+    .setImage(user.displayAvatarURL())
     message.channel.send(embed)
 
  }

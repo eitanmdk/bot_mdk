@@ -2,10 +2,7 @@ const Discord = require('discord.js')
 
 module.exports = async (client) => {
   
-  const lol = new Discord.MessageEmbed()
-  .setDescription('Restart finished')
-  .setColor('RANDOM')
-  client.channels.cache.get('824630817665056849').send(lol)
+
 
   async function createApiMessage(interaction, content){
     const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
@@ -34,7 +31,7 @@ module.exports = async (client) => {
     type:'PLAYING'
   },
   {
-    name:'version 3.2',
+    name:'version 3.3',
     type:'PLAYING'
   },
   {
@@ -54,7 +51,7 @@ module.exports = async (client) => {
     type:'WATCHING'
   },
   {
-   name:'3.3 soon',
+   name:'3.4 soon',
    type:'WATCHING'
   },
   {
@@ -75,6 +72,10 @@ module.exports = async (client) => {
   }, 7000)
 
 console.log('si estoy online !!!!')
+const discordem = new Discord.MessageEmbed()
+.setDescription("The restart has finished")
+.setColor("RANDOM")
+client.channels.cache.get("824630817665056849").send(discordem)
 
 }
 

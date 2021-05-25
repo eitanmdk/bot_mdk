@@ -18,7 +18,7 @@ execute (client, message, args){
   .setColor('#FF0000')
   .setThumbnail('https://media.giphy.com/media/5wWf7HapUvpOumiXZRK/giphy.gif')
   .setTimestamp()
-    .addField('3.2', 'Rremasterized all the help command and i made some new commands like `m!snipe`, `m!work` and `m!bal` and we re-opened our ECONOMY SYSTEM GGS')
+    .addField('3.3', 'Fixed problem with help, new command !!! `m!dep` and i update `m!av` now you can mention, 3 new commands more !!! `m!commands` `m!servers`, `m!users` and new IMPLEMENT **LOGS**!!!! `m!setlogs` for the new logs system GGs and `m!punch` command, and a new command `m!serverinfo`')
       client.channels.cache.get("825138580321075220").send(embed)
 
     }

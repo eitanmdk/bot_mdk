@@ -9,7 +9,6 @@ module.exports = {
 
 const reporte = args.join(" ")
 if(!reporte) return message.channel.send("U need to write a report ya dum dum")
-if(reporte) return message.channel.send("report sent")
 
 const embed = new Discord.MessageEmbed()
 
@@ -17,7 +16,7 @@ const embed = new Discord.MessageEmbed()
 .setDescription(`The user **${message.author.username}** made a bug report \n\n Report: **${reporte}**!`)
 .setFooter("New Bug Report")
 .setColor("RANDOM")
-client.channels.cache.get('827340926133338122').send(embed)
+client.channels.cache.get('827340926133338122').send(embed).then(message.channel.send("report sent"))  
 
 }
 

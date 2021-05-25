@@ -41,6 +41,7 @@ execute (client, message, args){
     .addField('3.0', 'THE BEST UPDATE EVER MADE !!!! THE NEW UPDATE COME WITH A NEW MUSIC SYSTEM `m!music` FOR THE COMMANDS NOW U CAN MAKE HOWGAY U ARE WITH `m!howgay` AND U CAN MENTION FOR KNOW HOW THEY GAY ARE ALSO THE `m!hack` COMMAND HAS BECOME YOU CAN NOW HACK PEOPLE WITH MY BOT AND A LOT OF THINGS MORE LIKE SECRET COMMS USE IT AND `m!peter-griffin` COMMAND IS HERE U CAN PUT UR AVATAR OR THE OTHERS AVATAR ON THE FACE OF PETER LOL AND A NEW SYSTEM OF HANDLER HAS BECOME TAKE CARE')
     .addField('3.1', 'Bassicly a bug fix nothing else and i add all commands of 3.0 on help comms')
     .addField('3.2', 'Rremasterized all the help command and i made some new commands like `m!snipe`, `m!work` and `m!bal` and we re-opened our ECONOMY SYSTEM GGS')
+    .addField('3.3', 'Fixed problem with help, new command !!! `m!dep` and i update `m!av` now you can mention, 3 new commands more !!! `m!commands` `m!servers`, `m!users` and new IMPLEMENT **LOGS**!!!! `m!setlogs` for the new logs system GGs and `m!punch` command, and a new command `m!serverinfo`')
     message.channel.send(embed)
 
  }

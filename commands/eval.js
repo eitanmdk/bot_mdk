@@ -26,7 +26,7 @@ execute (client, message, args){
  const embed = new Discord.MessageEmbed()  
  .setColor('GREEN')  
  .setTitle('evaluado!')
- .addField(`**tipo**`, `\`\`\`prolog\n${typeof(evaled)}\`\`\``, true)
+ .addField(`**TIPO**`, `\`\`\`prolog\n${typeof(evaled)}\`\`\``, true)
  .addField('**EVALUADO EN**', `\`\`\`yaml\n${Date.now() - message.createdTimestamp}ms\`\`\``, true)
  .addField(`**ENTRADA**`, `\`\`\`\n${command}\`\`\``)
  .addField(`**SALIDA**`, `\`\`\`js\n${inspect(evaled, {depth: 0})}\`\`\``)

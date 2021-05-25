@@ -20,27 +20,29 @@ execute (client, message, args){
   const economyembed = new Discord.MessageEmbed()
   .setTitle("Economy")
   .setColor('RANDOM')
-  .setDescription('`bal`, `work`')
+  .setDescription('`bal`, `work`, `deposit`')
 
   const funembed = new Discord.MessageEmbed()
   .setTitle("Fun")
   .setColor('RANDOM')
-  .setDescription("`howgay`, `hack`, `meme eng`, `meme esp`, `mainkra`, `rps`, `peter griffin`")
+  .setDescription("`howgay`, `hack`, `meme eng`, `meme esp`, `mainkra`, `rps`, `peter griffin`, `punch`")
 
   const randomembed = new Discord.MessageEmbed()
-  .setTitle("Fun")
+  .setTitle("Random")
   .setColor('RANDOM')
   .setDescription("`crow`, `badface`, `noob`, `dormir`, `tu mama`, `maik wasowski`")
+  
   const othersembed = new Discord.MessageEmbed()
   .setTitle("Others")
   .setColor('RANDOM')
-  .setDescription("`ping`, `suggest`, `report`, `invite`, `say`, `twitch`, `youtube`, `changelog`")
+  .setDescription("`ping`, `suggest`, `report`, `invite`, `say`, `twitch`, `youtube`, `changelog`, `info`, `commands`, `servers`, `users`, `page`, `av`")
+
   const musicembed = new Discord.MessageEmbed()
   .setTitle("Music")
   .setColor('RANDOM')
   .setDescription("`best-music`, `play`")
 
-  message.channel.send(firstembed).then(msg => {
+  message.author.send(firstembed).then(message.channel.send("I sent you a dm")).then(msg => {
     msg.react("💸")
     msg.react("🤪")
     msg.react("👮🏼‍♂️")

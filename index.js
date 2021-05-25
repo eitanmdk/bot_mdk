@@ -30,6 +30,7 @@ client.snipes = new Map()
 
   if(message.author.bot) return;
 
+
   if(!message.content.startsWith(prefix)) return;
 
   let usuario = message.mentions.members.first() || message.member; 
@@ -39,7 +40,17 @@ client.snipes = new Map()
 if(cmd){
 cmd.execute(client, message, args)
 
+
 }
+  if(!cmd){
+    const noexiste = new Discord.MessageEmbed()
+    .setTitle("ERROR 404")
+    .setDescription("**Oops I think that commmand dont exit check the spelling and try again please**")
+    .setColor("RANDOM")
+    .setTimestamp()
+
+    message.channel.send(noexiste)
+  }
 })
 client.on('messageDelete', message => {
   client.snipes.set(message.channel.id, {
@@ -69,17 +80,6 @@ app.listen(port)
 
 require('dotenv').config()
 
-//////////consola///////////
-
-async function createApiMessage(interaction, content){
-    const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
-    .resolveData()
-    .resolveFiles()
-
-    return { ...apiMessage.data, files : apiMessage.files };
-
-}
-
 
 ///////////comandos////////////
 client.on('message', msg => {
@@ -99,7 +99,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === prefix + 'german') {
-    msg.reply('TU MAMA EN TANGA');
+    msg.channel.send('TU MAMA EN TANGA');
   }
 });
 client.on('message', msg => {
@@ -149,8 +149,8 @@ client.on('ready', async () => {
 }
 client.api.applications(client.user.id).commands.post({
   data: {
-    name:'hola',
-    description:'test bro'
+    name:'test',
+    description:'test bro dont use'
      }
   });
 });
@@ -159,10 +159,10 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
   const command = interaction.data.name.toLowerCase();
   const args = interaction.data.options;
 
-  if(command === 'hola'){
+  if(command === 'test'){
     client.api.interaction(interaction.id, interaction.token).callback.post({
       data: {
-        type: 1,
+        type: 4,
         data: {
           content:"test"
         }
